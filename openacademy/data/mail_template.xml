@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <odoo>
+    <data>
+    <record id="sendemail_template" model="mail.template">
+        <field name="name">EMAIL TEMPLATE</field>
+        <field name="model_id" ref="openacademy.model_openacademy_registered_student"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="email_from">shanamalek157@gmail.com</field>
+        <field name="email_to">${object.email_id}</field>
+        <field name="subject">Sending from ERP ref(${object.regi_no})</field>
+        <field name="body_html" type="html">
+        <div style="margin:0px; padding:0px;">
+        <p> Dear ${object.student_name.stu_name}
+           <br/>
+        <br/>
+          Thank you for registering course in our Institute.<br/></p>
+        <p>  If you have any query regarding course please contact us.</p>
+
+        </div>
+        </field>
+        <field name="report_template" ref="action_report_course_receipt"/>
+        <field name="report_name">RECEIPT_${(object.regi_no)}</field>
+    </record>
+  </data>
+    </odoo>

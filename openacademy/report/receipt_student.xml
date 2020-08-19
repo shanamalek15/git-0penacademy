@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_receipt">
+  <t t-call="web.internal_layout">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+          <!-- <t t-call="web.external_layout"> -->
+               <div class="page">
+                   <h1>Receipt Students</h1>
+                   <div>
+                     <strong>Order No:</strong>
+                     <h3> <span t-field="o.regi_no"/></h3>
+                   </div>
+                   <div>
+                     <p> Name : <span t-field="o.student_name"/></p>
+                   </div>
+               </div>
+               <div>
+                   <strong>Confirmation Date:</strong>
+                   <p class="m-0" t-field="o.confirmation_date"/>
+               </div>
+               <div>
+                 <table class="table table-sm o_main_table" style="width:100%;"  border="1">
+                     <thead>
+                         <tr>
+                             <t t-set="colspan" t-value="3"/>
+                             <th class="text-left">Course Type</th>
+                              <th class="text-right">
+                                   <span>Discount.(%)</span>
+                               </th>
+                             <th class="text-right">Unit Price</th>
+
+                         </tr>
+                         <tr>
+                         </tr>
+                     </thead>
+                     <tbody>
+
+                       <t t-foreach="o.enrolledcourses_line" t-as="line">
+                         <tr>
+                          <td> <span t-field="line.name"/> </td>
+                          <td> <span t-field="line.discount"/></td>
+                          <td>  <span t-field="line.rate"/> </td>
+                      </tr>
+                      </t>
+                     </tbody>
+                   </table>
+                 </div>
+                     <div style="width:100%;padding:30px;">
+                     <table style="width:30%;float:right;margin-right:0px;border-collapse: collapse;"  >
+                         <tr>
+                             <td class="text-right"><strong>Subtotal</strong></td>
+                             <td class="text-right">
+                                 <span t-field="o.amount_totalcost"/>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="text-right"><strong>Discount</strong></td>
+                             <td class="text-right">
+                                 <span t-field="o.amount_discounted"/>
+                             </td>
+                         </tr>
+                         <tr style="border-top:1px solid;">
+                             <td class="text-right"><strong>Total</strong></td>
+                             <td class="text-right">
+                              <span t-field="o.amount_total"/>
+                             </td>
+                         </tr>
+                         <div>
+                          </div>
+
+                       </table>
+
+               </div>
+
+           </t>
+        </t>
+    </t>
+</template>
+</odoo>

@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<record model="ir.actions.act_window" id="course_list_action">
+<field name="name">courses category</field>
+<field name="res_model">openacademy.course</field>
+<field name="view_mode">tree,form</field>
+<field name="help" type="html">
+  <p class="o_view_nocontent_smiling_face">Create the first course
+</p>
+</field>
+</record>
+
+
+<record model="ir.ui.view" id="course_search_view">
+<field name="name">course.search.view</field>
+<field name="model">openacademy.course</field>
+<field name="arch" type="xml">
+  <search>
+    <field name="course_category"/>
+    <field name="description"/>
+  </search>
+</field>
+</record>
+
+<record model="ir.ui.view" id="action_course_category">
+    <field name="name">view.course.category</field>
+    <field name="model">openacademy.course</field>
+    <field name="arch" type="xml">
+      <form>
+      <sheet>
+      <group>
+      <field name="course_category"/>
+      <field name="description"/>
+
+    </group>
+    </sheet>
+    </form>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="allcourse_form_view">
+<field name="name">view.allcourse.form.view</field>
+<field name="model">openacademy.coursetype</field>
+<field name="arch" type="xml">
+      <form string="Course Form">
+        <sheet>
+
+          <div class="oe_title">
+            <label for="name" class="oe_edit_only" string="Name"/>
+            <h1><field name="name" placeholder="Course Name.."/></h1>
+          </div>
+          <group>
+            <group>
+              <field name="description"/>
+            </group>
+            <group>
+              <field name="course_pay_type" widget="radio" attrs="{'invisible':[('hide', '=', True)]}"/>
+              <field name="rate"/>
+              <field name="hide" invisible="1"/>
+            </group>
+            <group>
+              <field name="courses_catagory" widget="many2one"/>
+          </group>
+        </group>
+      </sheet>
+    </form>
+</field>
+</record>
+
+<record model="ir.ui.view" id="view_allcourse_tree">
+<field name="name">view.allcourse.tree</field>
+<field name="model">openacademy.coursetype</field>
+<field name="arch" type="xml">
+    <tree string="Course Details">
+      <field name="name"/>
+      <field name="courses_catagory"/>
+      <field name="rate"/>
+    </tree>
+</field>
+</record>
+
+<record model="ir.actions.act_window" id="action_coursetype">
+<field name="name">Course Details</field>
+<field name="res_model">openacademy.coursetype</field>
+<field name="view_mode">tree,form</field>
+<field name="help" type="html">
+    <p class="o_view_nocontent_smiling_face">Create the first course
+    </p>
+</field>
+</record>
+
+
+
+
+<record model="ir.ui.view" id="action_form_workshop">
+<field name="name">view.form.action.workshop.</field>
+<field name="model">openacademy.workshop</field>
+<field name="arch" type="xml">
+          <form>
+            <sheet>
+              <group>
+                <group>
+                  <field name="name"/>
+                  <field name="instructor"/>
+                  <field name="fee"/>
+                </group>
+                <group>
+                  <field name="place"/>
+                  <field name="date"/>
+                  <field name="time" widget="float_time"/>
+                </group>
+              </group>
+              <notebook>
+                <page name="info" string="Workshops Modules">
+                  <group>
+                    <group>
+                      <field name="modules_Number"/>
+                    </group>
+                    <group>
+                      <field name="exam" placeholder="In Hours"/>
+                    </group>
+                  </group>
+                </page>
+              </notebook>
+            </sheet>
+          </form>
+        </field>
+  </record>
+
+<record model="ir.ui.view" id="view_openacademy_workshop_tree">
+<field name="name">openacademy.workshop.tree</field>
+<field name="model">openacademy.workshop</field>
+<field name="arch" type="xml">
+    <tree string="Workshop Details">
+      <field name="name"/>
+      <field name="date"/>
+      <field name="time"/>
+      <field name="fee"/>
+      <field name="place"/>
+      <field name="instructor"/>
+    </tree>
+</field>
+</record>
+
+<record model="ir.actions.act_window" id="action_workshop">
+<field name="name">Workshop</field>
+<field name="res_model">openacademy.workshop</field>
+<field name="view_mode">tree,form</field>
+</record>
+
+
+
+
+<record model="ir.ui.view" id="action_form_enrolled_student">
+<field name="name">view.form.action_enrolled.student</field>
+<field name="model">openacademy.enrolledstudent</field>
+<field name="arch" type="xml">
+        <form>
+            <sheet>
+                  <field name="stu_photo" widget="image" class="oe_avatar"/>
+                  <group>
+                  <group>
+
+                  <field name="stu_name"/>
+                  <field name="gender" widget="radio"/>
+                </group>
+                <group>
+
+                  <field name="contact"/>
+                  <field name="email"/>
+                  <field name="qualification" widget="selection"/>
+                  <field name="birthday" on_chage="_onchange_age(birthday)"/>
+                  <field name="age"/>
+
+                </group>
+              </group>
+              <notebook>
+                <page name="Course Cost" string="Workshops Modules">
+                  <group>
+                    <group>
+                      <field name="no_course"/>
+                      <field name="course_unit_cost" />
+                      <field name="total_course_fees"/>
+                    </group>
+                  </group>
+                </page>
+                <page name="percentage" string="Performance">
+                  <form>
+                      <group>
+                        <group>
+                        <field name="sub1"/>
+                        <field name="sub2"/>
+                        <field name="sub3"/>
+                        </group>
+                        <group>
+                        <field name= "percentage"/>
+                        <field name="status"/>
+                        </group>
+                      </group>
+                  </form>
+                </page>
+
+              </notebook>
+            </sheet>
+          </form>
+        </field>
+</record>
+
+<record id="partner_kanban_view" model="ir.ui.view">
+<field name="name">openacademy.enrolledstudent.kanban</field>
+<field name="model">openacademy.enrolledstudent</field>
+  <field name="arch" type="xml">
+          <kanban class="o_res_partner_kanban">
+
+              <field name="id"/>
+              <field name="stu_photo"/>
+              <field name="stu_name"/>
+              <field name="contact"/>
+              <field name="email"/>
+              <field name="gender"/>
+              <templates>
+                <t t-name="kanban-box">
+                  <div t-attf-class="oe_kanban_global_click" style="padding:8px;">
+
+                    <div class="o_kanban_image">
+                      <img  alt="Avatar" t-att-src="kanban_image('openacademy.enrolledstudent', 'stu_photo',record.id.value)"/>
+                    </div>
+
+                    <div class="oe_kanban_details">
+                      <strong class="o_kanban_record_title">
+                        <strong><field name="stu_name"/> </strong>
+                      </strong>
+                      <!-- <ul>
+                      <li><field name="contact"/></li>
+                      <li><field name="gender"/></li>
+                    </ul> -->
+                      <div t-if="record.contact.value">
+                        <t t-esc="record.contact.value"/>
+                      </div>
+                      <div t-if="record.email.value">
+                        <t t-esc="record.email.value"/>
+                      </div>
+                      <div t-if="record.gender.value">
+                        <t t-esc="record.gender.value"/>
+                      </div>
+                    </div>
+                  </div>
+                </t>
+              </templates>
+            </kanban>
+          </field>
+</record>
+
+<record model="ir.ui.view" id="enrolledstudent_tree_view">
+  <field name="name">view.enrolledstudent.tree</field>
+  <field name="model">openacademy.enrolledstudent</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="stu_name"/>
+      <field name="contact"/>
+      <field name="gender"/>
+      <field name="email" />
+    </tree>
+  </field>
+</record>
+
+
+<record model="ir.actions.act_window" id="action_enrolled_student" >
+<field name="name">Enrolled Students</field>
+<field name="type">ir.actions.act_window</field>
+<field name="res_model">openacademy.enrolledstudent</field>
+<field name="view_type">form</field>
+<field name="view_mode">kanban,tree,form</field>
+</record>
+
+
+<record model="ir.ui.view" id="salary_view">
+  <field name="name">view.salary</field>
+  <field name="model">openacademy.salary</field>
+  <field name="arch" type="xml">
+    <form>
+      <sheet>
+        <group>
+          <group>
+        <field name="instructor_name"/>
+        <field name="working_hour"/>
+        <field name="pay_per_hour"/>
+      </group>
+        <group>
+        <field name ="salary" />
+        </group>
+       </group>
+      </sheet>
+    </form>
+  </field>
+</record>
+
+<record model="ir.ui.view" id="salary_tree_view">
+  <field name="name">openacademy.salary.tree</field>
+  <field name="model">openacademy.salary</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="instructor_name" widget="many2one"/>
+      <field name="working_hour"/>
+      <field name="pay_per_hour"/>
+      <field name="salary" />
+    </tree>
+  </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_instructor_salary">
+<field name="name">Salary</field>
+<field name="res_model">openacademy.salary</field>
+<field name="view_type">form</field>
+<field name="view_mode">tree,form</field>
+</record>
+
+
+<record model="ir.ui.view" id="view_instructor_info">
+  <field name="name">view.form.instructorinfo</field>
+  <field name="model">openacademy.instructor.information</field>
+  <field name="arch" type="xml">
+  <form>
+    <sheet>
+      <group>
+        <group>
+          <field name="instruct_name"/>
+          <field name="address"/>
+          <field name="hide" invisible="1"/>
+          <field name="country_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+          <field name="state_id" options="{'no_quick_create': True, 'no_create_edit' : True}" attrs="{'invisible':[('hide', '=', True)]}"/>
+          <field name="city"/>
+          </group>
+        <group>
+          <field name="contact"/>
+          <field name ="email" />
+        </group>
+       </group>
+      </sheet>
+    </form>
+  </field>
+</record>
+
+<record model="ir.ui.view" id="instructorinfo_tree_view">
+  <field name="name">view.instructorinfo.tree</field>
+  <field name="model">openacademy.instructor.information</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="instruct_name"/>
+      <field name="contact"/>
+      <field name="email" />
+    </tree>
+  </field>
+</record>
+
+<record model="ir.actions.act_window" id="action_instructor_info">
+  <field name="name">Information</field>
+  <field name="res_model">openacademy.instructor.information</field>
+  <field name="view_type">form</field>
+  <field name="view_mode">tree,form</field>
+</record>
+
+
+<record id="view_enrolled_course" model="ir.ui.view">
+  <field name="name">course enrollment view</field>
+  <field name="model">openacademy.courseenrolled</field>
+  <field name="arch" type="xml">
+    <form>
+      <sheet>
+        <group>
+          <field name="course_name"/>
+        </group>
+        <notebook>
+          <page name="Enrolled Student Many2many">
+            <field name="enrolledstudent" widget="many2many">
+            <tree>
+              <field name="stu_name"/>
+              <field name="email"/>
+              <field name="contact"/>
+
+            </tree>
+          </field>
+          </page>
+        </notebook>
+      </sheet>
+    </form>
+  </field>
+</record>
+
+
+<record model="ir.ui.view" id="coursenrolled_tree_view">
+  <field name="name">view.courseenrolled</field>
+  <field name="model">openacademy.courseenrolled</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="course_name"/>
+    </tree>
+  </field>
+</record>
+
+<record id="action_enrolled_coursre" model="ir.actions.act_window">
+  <field name="name">Course Enrollment</field>
+  <field name="res_model">openacademy.courseenrolled</field>
+  <field name="view_type">form</field>
+  <field name="view_mode">tree,form</field>
+</record>
+
+<record id="registration_tree_view" model="ir.ui.view">
+  <field name="name">tree.registrationview</field>
+  <field name="model">openacademy.registered.student</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="student_name"/>
+      <field name="regi_date"/>
+      <field name="payment_status"/>
+      <field name="state"/>
+    </tree>
+  </field>
+</record>
+
+<record id="view_registered_students" model="ir.ui.view">
+  <field name="name">view.registered</field>
+  <field name="model">openacademy.registered.student</field>
+  <field name="arch" type="xml">
+    <form>
+      <header>
+        <button name="action_confirm" id="action_confirm"
+            string="Confirm" class="btn-primary" type="object"
+                attrs="{'invisible': [('state', '=', 'done')]}"/>/>
+        <button name="action_cancel" type="object" string="Cancel"/>
+        <button name="action_prints" id="action_print"
+            string="Print Reciept" class="btn-primary" type="object"
+            attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+
+              <button name="action_send_mail" type="object" string="Send Mail" class="oe_highlight"/>
+            <field name="state" widget="statusbar" statusbar_visible="done,cancel"/>
+      </header>
+      <sheet>
+        <div class="oe_title">
+                      <h1>
+                            <field name="regi_no" readonly="1"/>
+                      </h1>
+                </div>
+      <group>
+        <group>
+
+        <field name="student_name"/>
+        <field name="contact"/>
+        <field name="email_id"/>
+
+      </group>
+        <group>
+        <field name="regi_date"/>
+        <field name="payment_status" widget="radio"/>
+      </group>
+      </group>
+      <field name="enrolledcourses_line" widget="one2many" style="color:#0a8ea4;">
+        <form>
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="courses_catagory"/>
+              </group>
+            <group>
+              <label for="discount"/>
+              <div class="o_row">
+              <field name="discount"/><span>%%</span>
+            </div>
+              <field name="rate"/>
+            </group>
+          </group>
+        </form>
+        <tree editable="bottom">
+          <field name="name"/>
+          <field name="courses_catagory"/>
+          <field name="discount"/>
+          <field name="rate" sum="Total"/>
+        </tree>
+      </field>
+      <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+          <field name="amount_totalcost" />
+          <field name="amount_discounted" />
+          <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+              <label for="amount_total" />
+          </div>
+          <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"/>
+      </group>
+      </sheet>
+    </form>
+  </field>
+</record>
+
+<record id="action_registered_students" model="ir.actions.act_window">
+  <field name="name">Registration</field>
+  <field name="res_model">openacademy.registered.student</field>
+  <field name="view_type">form</field>
+  <field name="view_mode">tree,form</field>
+</record>
+
+<record id="action_registered_students_tree" model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="openacademy.registration_tree_view"/>
+    <field name="act_window_id" ref="action_registered_students"/>
+</record>
+
+
+
+
+<record model="ir.ui.view" id="confirmregi_tree_view">
+  <field name="name">view.confirmregistration</field>
+  <field name="model">openacademy.registered.student</field>
+  <field name="arch" type="xml">
+    <tree>
+      <field name="student_name"/>
+      <field name="state"/>
+      <field name="payment_status"/>
+      <field name="confirmation_date"/>
+    </tree>
+  </field>
+</record>
+
+
+
+<record id="action_confirm_students" model="ir.actions.act_window">
+  <field name="name"> Confirm Registration</field>
+  <field name="res_model">openacademy.registered.student</field>
+  <field name="view_type">form</field>
+  <field name="view_mode">tree,form</field>
+  <field name="domain">[('state', '=', 'done')]</field>
+</record>
+
+<record id="action_confirm_students_tree" model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="openacademy.confirmregi_tree_view"/>
+    <field name="act_window_id" ref="action_confirm_students"/>
+</record>
+
+<record id="view_calender" model="ir.ui.view">
+  <field name="name">view.calender</field>
+  <field name="model">openacademy.calender</field>
+  <field name="arch" type="xml">
+    <form>
+      <sheet>
+      <group>
+        <group>
+
+        <field name="emp_name"/>
+        </group>
+
+      </group>
+      <field name="entrycalender_line" widget="one2many">
+        <form>
+          <group>
+            <group>
+              <field name="week_day"/>
+              <field name="start_time"/>
+              <field name="end_time"/>
+              </group>
+            </group>
+        </form>
+        <tree editable="bottom">
+          <field name="week_day"/>
+          <field name="start_time" widget="float_time"/>
+          <field name="end_time" widget="float_time"/>
+        </tree>
+      </field>
+      </sheet>
+    </form>
+  </field>
+</record>
+
+
+<record model="ir.actions.act_window" id="action_opencalender">
+  <field name="name">Calender</field>
+  <field name="res_model">openacademy.calender</field>
+  <field name="view_type">form</field>
+  <field name="view_mode">tree,form</field>
+</record>
+
+<record id="wizard_view" model="ir.ui.view">
+  <field name="name">Wizard Open</field>
+  <field name="model">openacademy.wizardpayment</field>
+  <field name="arch" type="xml">
+    <form>
+  <group>
+    <field name="payment_status" widget="radio"/>
+  </group>
+    <footer style="float:right;">
+      <button name="set_pay_status" type="object"
+          string="Submit" class="oe_highlight"/>
+      <button special="cancel" string="Cancel"/>
+    </footer>
+  </form>
+  </field>
+</record>
+
+
+  <act_window id="launch_payment_wizard"
+            name="Launch the Wizard"
+            res_model="openacademy.wizardpayment"
+            src_model="openacademy.registered.student"
+            view_mode="form"
+            target="new"
+            multi="True"/>
+
+
+
+<!-- top level menu: no parent -->
+<menuitem id="main_openacademy_menu" name="Open Academy"/>
+<!-- A first level in the left side menu is needed
+before using action= attribute -->
+    <menuitem id="course_menu" name="Course"
+      parent="main_openacademy_menu" action="course_list_action"/>
+
+
+    <menuitem id="courses_menu_sequance3" name=" All Course" parent="course_menu"
+    action="action_coursetype"/>
+
+<menuitem id="workshop_menu" name="Workshops"
+parent="main_openacademy_menu" action="action_workshop"/>
+
+
+
+
+<menuitem id="courseenrollment_menu" name="Course Enrollment"
+parent="main_openacademy_menu" />
+
+    <menuitem id="courseenrollment_menu_sequance1" name="Enrolled Students"
+      parent="courseenrollment_menu" action="action_enrolled_student"/>
+
+    <menuitem id="courseenrollment_menu_sequance2" name="Course Enrollment"
+      parent="courseenrollment_menu" action="action_enrolled_coursre"/>
+
+
+      <menuitem id="courseenrollment_menu_sequance3" name="Course Registered"
+        parent="courseenrollment_menu" action="action_registered_students"/>
+
+        <menuitem id="courseenrollment_menu_sequance4" name="Confirmmed Registration"
+          parent="courseenrollment_menu" action="action_confirm_students"/>
+
+
+<menuitem id="instructor_menu" name="Instructor"
+  parent="main_openacademy_menu" />
+
+    <menuitem id="instructor_menu_sequance1" name="Information" parent="instructor_menu"
+      action="action_instructor_info"/>
+
+    <menuitem id="instructor_menu_sequance2" name="Salary" parent="instructor_menu"
+      action="action_instructor_salary"/>
+
+<menuitem id="calendar_menu" name="Calendar"
+      parent="main_openacademy_menu" />
+
+      <menuitem id="calender_menu_sequance1" name="Calendar" parent="calendar_menu"
+        action="action_opencalender"/>
+
+
+</odoo>
+
+
+
+
+<!-- the following menuitem should appear *after*
+its parent openacademy_menu and *after* its
+action course_list_action -->
+
+
+
+
+<!-- Full id location:
+action="openacademy.course_list_action"
+It is not required when it is the same module -->
